@@ -1,0 +1,48 @@
+{% extends  "./base.html" %}
+
+{% block title %}Booking management{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+    <h3>Edit Vehicle</h3>
+        <div class="card-body" >
+            <form action="/vehicle_edition/" method="POST">{% csrf_token %}
+                <div class="mb-3" >
+                    <input type="text" id="txtvinnum" name="txtVin_num" value="{{vehicle.vin_num}}" class="form-control"
+                           placeholder="Vin Number" minlength="1" maxlength="15" readonly required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtmake" name="txtMake" value="{{vehicle.make}}" class="form-control"
+                           placeholder="Make" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtmodel" name="txtModel" value="{{vehicle.model}}" class="form-control"
+                           placeholder="Model" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtweight" name="txtWeight" value="{{vehicle.weight}}" class="form-control"
+                           placeholder=Weight minlength="1" maxlength="15" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Booking</label>
+
+                    <select class="form-select" id="inputGroupSelect01" id="txtBookingnum"
+                           name="txtBooking_num" class="form-control" >
+
+                        {% for c in bookings%}
+
+                        <option value="{{c.booking_number}}">{{c.booking_number}}</option>
+                         {% endfor %}
+                    </select>
+
+                </div>
+                <div class="d-grid gap-2 col-12 mx-auto py-2">
+                    <button type="submit" class="btn btn-success btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

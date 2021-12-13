@@ -1,0 +1,153 @@
+{% extends  "./base.html" %}
+
+{% block title %}Booking management{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" py-2>
+        <h2>Add Bookings</h2>
+        <div class="card-body" >
+            <form action="/register_booking/" method="POST">{% csrf_token %}
+                <div class="mb-3" >
+                    <input type="text" id="txtbooking" name="txtBook_num" class="form-control"
+                           placeholder="Booking Number" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtloading" name="txtloading_port" class="form-control"
+                           placeholder="Loading port" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtdischarge" name="txtDischarge_port" class="form-control"
+                           placeholder="Discharge port" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="date" id="txtdeparture" name="txtDeparture_date" class="form-control"
+                           minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="date" id="txtarrival" name="txtArrival_date" class="form-control"
+                           minlength="1" maxlength="15" required>
+                </div>
+                <div class="d-grid gap-2 col-12 mx-auto py-2">
+                    <button type="submit" class="btn btn-success btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <div class="table-responsive" style="max-height:380px;overflow:auto;">
+            <h2>Bookings List</h2>
+            <table class="table table-bordered table-stripped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Booking number</th>
+                    <th>Loading port</th>
+                    <th>Discharge port</th>
+                    <th>Departure date</th>
+                    <th>Arrival date</th>
+                    <th colspan="2">Options</th>
+
+                </tr>
+
+                </thead>
+                <tbody>
+                    {% for c in bookings%}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td> {{c.booking_number}}</td>
+                            <td> {{c.loading_port}}</td>
+                            <td> {{c.discharge_port}}</td>
+                            <td> {{c.departure_date}}</td>
+                            <td> {{c.arrival_date}}</td>
+                            <td><a href="edit_booking/{{c.booking_number}}" class="btn btn-info">EDIT</a> </td>
+                            <td><a href="erase_booking/{{c.booking_number}}" class="btn btn-danger btnErase">ERASE</a> </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4" py-2>
+    <h3>Add Vehicle</h3>
+        <div class="card-body" >
+            <form action="/register_vehicle/" method="POST">{% csrf_token %}
+                <div class="mb-3" >
+                    <input type="text" id="txtvinnum" name="txtVin_num" class="form-control"
+                           placeholder="Vin Number" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtmake" name="txtMake" class="form-control"
+                           placeholder="Make" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtmodel" name="txtModel" class="form-control"
+                           placeholder="Model" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtweight" name="txtWeight" class="form-control"
+                           placeholder=Weight minlength="1" maxlength="15" required>
+                </div>
+
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Booking</label>
+
+                    <select class="form-select" id="inputGroupSelect01" id="txtBookingnum"
+                           name="txtBooking_num" class="form-control" >
+                        {% for c in bookings%}
+                        <option >{{c.booking_number}}</option>
+                         {% endfor %}
+                    </select>
+                </div>
+                <div class="d-grid gap-2 col-12 mx-auto py-2">
+                    <button type="submit" class="btn btn-success btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <div class="table-responsive" style="max-height:380px;overflow:auto;">
+            <h2>Vehicles List</h2>
+            <table class="table table-bordered table-stripped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Vin Number</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Weight</th>
+                    <th>Booking</th>
+                    <th colspan="2">Options</th>
+
+                </tr>
+
+                </thead>
+                <tbody>
+                    {% for c in vehicles%}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td> {{c.vin_num}}</td>
+                            <td> {{c.make}}</td>
+                            <td> {{c.model}}</td>
+                            <td> {{c.weight}}</td>
+                            <td> {{c.booking}}</td>
+                            <td><a href="edit_vehicle/{{c.vin_num}}" class="btn btn-info">EDIT</a> </td>
+                            <td><a href="erase_vehicle/{{c.vin_num}}" class="btn btn-danger btnErase">ERASE</a> </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+    </div>
+
+
+
+
+{% endblock%}

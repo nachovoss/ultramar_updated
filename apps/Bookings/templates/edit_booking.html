@@ -1,0 +1,77 @@
+{% extends  "./base.html" %}
+
+{% block title %}Booking management{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edit Booking</h2>
+        <div class="card-body" >
+            <form action="/booking_edition/" method="POST">{% csrf_token %}
+                <div class="mb-3" >
+                    <input type="text" id="txtbooking" name="txtBook_num" value="{{booking.booking_number}}" class="form-control"
+                           placeholder="Booking Number" minlength="1" maxlength="15" readonly required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtloading" name="txtloading_port" value="{{booking.loading_port}}" class="form-control"
+                           placeholder="Loading port" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" id="txtdischarge" name="txtDischarge_port" value="{{booking.discharge_port}}" class="form-control"
+                           placeholder="Discharge port" minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="date" id="txtdeparture" name="txtDeparture_date" value="{{booking.departure_date}}" class="form-control"
+                           minlength="1" maxlength="15" required>
+                </div>
+                <div class="mb-3">
+                    <input type="date" id="txtarrival" name="txtArrival_date" value="{{booking.arrival_date}}" class="form-control"
+                           minlength="1" maxlength="15" required>
+                </div>
+                <div class="d-grid gap-2 col-12 mx-auto py-2">
+                    <button type="submit" class="btn btn-success btn-block">Save</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    </div>
+ <div class="col-sm-12 col-md-6 offset-md-2 col-lg-8 col-xl-8">
+        <div class="table-responsive" style="max-height:380px;overflow:auto;">
+            <h2>Vehicles List</h2>
+            <table class="table table-bordered table-stripped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Vin Number</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Weight</th>
+                    <th>Booking</th>
+                    <th colspan="2">Options</th>
+
+                </tr>
+
+                </thead>
+                <tbody>
+                    {% for c in vehicle%}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td> {{c.vin_num}}</td>
+                            <td> {{c.make}}</td>
+                            <td> {{c.model}}</td>
+                            <td> {{c.weight}}</td>
+                            <td> {{c.booking}}</td>
+                             <td><a href="edit_vehicle/{{c.vin_num}}" class="btn btn-info">EDIT</a> </td>
+                            <td><a href="erase_vehicle/{{c.vin_num}}" class="btn btn-danger btnErase">ERASE</a> </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+{% endblock %}
